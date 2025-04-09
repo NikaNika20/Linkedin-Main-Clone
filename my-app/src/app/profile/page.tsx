@@ -53,7 +53,6 @@ const Profile = () => {
     <div className="flex flex-col gap-8 min-h-screen">
       <Navbar />
       <div className="flex flex-col items-center gap-8 p-8">
-        {/* Cover and Profile Pics */}
         <div className="relative w-full">
           <img 
             src={user.coverPic || '/default-cover.jpg'} 
@@ -80,7 +79,6 @@ const Profile = () => {
           />
         </div>
 
-        {/* User Info */}
         <div className="text-center">
           <h2 className="text-3xl font-semibold">{user.firstName} {user.lastName}</h2>
           <p className="text-xl text-gray-600">{user.jobTitle}</p>
@@ -88,7 +86,6 @@ const Profile = () => {
           <p className="text-lg text-gray-700">@{user.username}</p>
         </div>
 
-        {/* Save Button */}
         <button 
           onClick={saveChanges} 
           className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4"

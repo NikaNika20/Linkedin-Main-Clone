@@ -75,7 +75,7 @@ const Home = () => {
   const handleDeletePost = (id: number) => {
     const updatedPosts = posts.filter(post => post.id !== id)
     setPosts(updatedPosts)
-    localStorage.setItem('posts', JSON.stringify(updatedPosts)) // ✅ აქაა ცვლილება
+    localStorage.setItem('posts', JSON.stringify(updatedPosts))
   }
 
   const handleAddComment = (postId: number, comment: string) => {
@@ -113,7 +113,6 @@ const Home = () => {
       <Navbar />
       <div className="flex w-full justify-between p-4 gap-8">
 
-        {/* Left Side: Profile Info */}
         <div className="w-1/4 bg-gray-100 p-4 flex flex-col items-center rounded-md shadow">
           <img
             src={profilePic || '/default-profile.jpg'}
@@ -132,7 +131,6 @@ const Home = () => {
           </button>
         </div>
 
-        {/* Middle: Posts */}
         <div className="w-1/2 p-4">
           <div className="mb-4">
             <textarea
@@ -200,7 +198,6 @@ const Home = () => {
                   </button>
                 </div>
 
-                {/* Comments */}
                 <div className="mt-4">
                   <input
                     type="text"
@@ -227,7 +224,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Right Side: Ads */}
+
         <div className="w-1/4 bg-gray-100 p-4 rounded-md shadow">
           <h2 className="text-xl mb-4">Advertisements</h2>
           <div className="bg-blue-500 text-white p-4 mb-4">Ad 1</div>

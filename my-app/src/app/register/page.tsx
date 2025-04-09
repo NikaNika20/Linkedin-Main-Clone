@@ -8,11 +8,11 @@ export default function RegisterPage() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
-  const [firstName, setFirstName] = useState<string>('')  // სახელი
-  const [lastName, setLastName] = useState<string>('')    // გვარი
-  const [username, setUsername] = useState<string>('')    // username
-  const [location, setLocation] = useState<string>('')    // ადგილი
-  const [jobTitle, setJobTitle] = useState<string>('')    // სამუშაო/სასწავლო ადგილი
+  const [firstName, setFirstName] = useState<string>('')
+  const [lastName, setLastName] = useState<string>('')  
+  const [username, setUsername] = useState<string>('')  
+  const [location, setLocation] = useState<string>('')  
+  const [jobTitle, setJobTitle] = useState<string>('')   
   const [error, setError] = useState<string>('')
 
   const handleRegister = (e: FormEvent<HTMLFormElement>) => {
@@ -23,7 +23,6 @@ export default function RegisterPage() {
       return
     }
 
-    // მომხმარებლის სრული ინფორმაცია
     const user = { 
       email, 
       password, 
@@ -34,12 +33,10 @@ export default function RegisterPage() {
       jobTitle 
     }
 
-    // მომხმარებელი ინახება LocalStorage-ში
     localStorage.setItem('user', JSON.stringify(user))
     localStorage.setItem('loggedIn', 'true')
 
-    // რეგისტრაციის შემდეგ ლოგინის გვერდზე გადახვალთ
-    router.push('/login')  // <- აქ არის გადატანა Login-თან
+    router.push('/login') 
   }
 
   return (

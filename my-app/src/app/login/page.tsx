@@ -26,7 +26,7 @@ export default function LoginPage() {
     }
 
     localStorage.setItem('loggedIn', 'true')
-    router.push('/') // root page, ანუ `page.tsx`
+    router.push('/')
   }
 
   return (
