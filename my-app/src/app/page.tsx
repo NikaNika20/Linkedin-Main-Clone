@@ -3,20 +3,35 @@
 import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
 
-const Home = () => {
-  const [posts, setPosts] = useState<{
-    id: number
-    user: string
-    content: string
-    comments: string[]
-    likes: string[]
-    media: string | null
-  }[]>([])
+interface Post {
+  id: number
+  user: string
+  content: string
+  comments: string[]
+  likes: string[]
+  media: string | null
+}
 
+interface User {
+  firstName: string
+  lastName: string
+  username: string
+  jobTitle: string
+  location: string
+  profilePic: string | null
+}
+
+interface Friend {
+  username: string
+  name: string
+}
+
+const Home = () => {
+  const [posts, setPosts] = useState<Post[]>([])
   const [newPost, setNewPost] = useState<string>('')
   const [newPostMedia, setNewPostMedia] = useState<File | null>(null)
-  const [user, setUser] = useState<any>({})
-  const [friends, setFriends] = useState<{ username: string; name: string }[]>([])
+  const [user, setUser] = useState<User | null>(null)
+  const [friends, setFriends] = useState<Friend[]>([])
 
   useEffect(() => {
     const storedPosts = JSON.parse(localStorage.getItem('posts') || '[]')
@@ -39,14 +54,12 @@ const Home = () => {
     setFriends(storedFriends)
   }, [])
 
-  const { firstName, lastName, username, jobTitle, location, profilePic } = user
-
   const handleAddPost = () => {
     const newPostData = {
       id: posts.length + 1,
-      user: `${firstName} ${lastName}`,
+      user: `${user?.firstName} ${user?.lastName}`,
       content: newPost,
-      comments: [] as string[],
+      comments: [],
       likes: [],
       media: newPostMedia ? URL.createObjectURL(newPostMedia) : null,
     }
@@ -63,7 +76,7 @@ const Home = () => {
   }
 
   const handleEditPost = (id: number) => {
-    const editedPost = prompt("Edit your post:")
+    const editedPost = prompt('Edit your post:')
     if (editedPost) {
       const updatedPosts = posts.map(post =>
         post.id === id ? { ...post, content: editedPost } : post
@@ -80,9 +93,7 @@ const Home = () => {
 
   const handleAddComment = (postId: number, comment: string) => {
     const updatedPosts = posts.map(post =>
-      post.id === postId
-        ? { ...post, comments: [...post.comments, comment] }
-        : post
+      post.id === postId ? { ...post, comments: [...post.comments, comment] } : post
     )
     setPosts(updatedPosts)
   }
@@ -90,11 +101,11 @@ const Home = () => {
   const handleLikePost = (postId: number) => {
     const updatedPosts = posts.map(post => {
       if (post.id === postId) {
-        const userIndex = post.likes.indexOf(username)
+        const userIndex = post.likes.indexOf(user?.username || '')
         if (userIndex !== -1) {
           post.likes.splice(userIndex, 1)
         } else {
-          post.likes.push(username)
+          post.likes.push(user?.username || '')
         }
       }
       return post
@@ -112,17 +123,16 @@ const Home = () => {
     <div className="flex flex-col gap-8 min-h-screen items-center sm:items-start">
       <Navbar />
       <div className="flex w-full justify-between p-4 gap-8">
-
         <div className="w-1/4 bg-gray-100 p-4 flex flex-col items-center rounded-md shadow">
           <img
-            src={profilePic || '/default-profile.jpg'}
+            src={user?.profilePic || '/default-profile.jpg'}
             alt="Profile"
             className="w-20 h-20 rounded-full"
           />
-          <h2 className="mt-2 text-xl">{`${firstName} ${lastName}`}</h2>
-          <p className="text-sm">{username}</p>
-          <p>{jobTitle}</p>
-          <p>{location}</p>
+          <h2 className="mt-2 text-xl">{`${user?.firstName} ${user?.lastName}`}</h2>
+          <p className="text-sm">{user?.username}</p>
+          <p>{user?.jobTitle}</p>
+          <p>{user?.location}</p>
           <button
             onClick={() => handleAddFriend('friend_username', 'Friend Name')}
             className="mt-2 bg-blue-500 text-white py-2 px-4 rounded-md"
@@ -223,7 +233,6 @@ const Home = () => {
             ))}
           </div>
         </div>
-
 
         <div className="w-1/4 bg-gray-100 p-4 rounded-md shadow">
           <h2 className="text-xl mb-4">Advertisements</h2>
