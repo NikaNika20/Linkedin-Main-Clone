@@ -1,0 +1,22 @@
+{
+  "name": "linkedin-main-clone",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikaNika20/Linkedin-Main-Clone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NikaNika20/Linkedin-Main-Clone/issues"
+  },
+  "homepage": "https://github.com/NikaNika20/Linkedin-Main-Clone#readme",
+  "description": ""
+}
